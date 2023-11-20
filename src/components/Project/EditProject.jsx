@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react' 
 import { useSelector } from 'react-redux'
 import uploadIcon from '../../assets/fi-rr-cloud-upload.svg'
-import { Navigate, useNavigate, useOutletContext } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 const EditProject = ({project}) => {
     const navigate = useNavigate()

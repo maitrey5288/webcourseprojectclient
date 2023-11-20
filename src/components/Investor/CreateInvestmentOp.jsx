@@ -10,7 +10,19 @@ import uploadIcon from '../../assets/fi-rr-cloud-upload.svg'
 const CreateInvestmentOp = () => {
     const navigate = useNavigate()
     const [image,setImage] = useState(false)
-  const {category} = useSelector((state)=> state.category)
+    const [category,setCategeories] = useState({name : ""})
+    const [loading,setLoading] = useState(true);
+    async function getcategories(){
+
+        const requestOptions = {
+            method: 'GET',
+        };
+        const response = await fetch('/api/v1/getallCategories', requestOptions);
+        const data = await response.json();
+        setCategeories(data.catagories) 
+    console.log("hijiejdi",category)
+    setLoading(false)
+    }
   const finalData = new FormData()
   const {token} = useSelector( (state) => state.auth )
   const[formData,setFormData]  =useState({})
@@ -74,9 +86,10 @@ async function submitHandler(event){
 
 	 
 
-
-  
-if(uploading){
+if(loading){
+getcategories()
+}
+else if(uploading){
 
   
     return toast.loading('Creating Investment')

@@ -12,7 +12,19 @@ const AddProjectDetails = ({setStepNo,formData,changeHandler,setImage,image}) =>
         formData.thumbnail = image
         console.log(formData);
       }
-      const {category} = useSelector((state)=> state.category)
+      const [category,setCategeories] = useState({name : ""})
+      const [loading,setLoading] = useState(true);
+      async function getcategories(){
+  
+          const requestOptions = {
+              method: 'GET',
+          };
+          const response = await fetch('/api/v1/getallCategories', requestOptions);
+          const data = await response.json();
+          setCategeories(data.catagories) 
+      console.log("hijiejdi",category)
+      setLoading(false)
+      }
  
      const inputRef = useRef(null);
     
@@ -30,8 +42,10 @@ const AddProjectDetails = ({setStepNo,formData,changeHandler,setImage,image}) =>
     
         };
 
-
-
+if(loading){
+getcategories()
+}
+else
   return (
     <div className='mx-auto my-10 w-[70%] bg-gray-900'>
     <form className='p-4 flex flex-col gap-5' >

@@ -28,8 +28,9 @@ import Investment from './pages/Investment';
 import ViewInvestment from './components/Investor/ViewInvestment';
 import InvestmentOpList from './components/Investor/InvestmentOpList';
 import ProjectsDisplay from './components/Project/ProjectsDisplay';
-import Notification from './pages/Notification';
+ 
 import AllInvestments from './components/Investor/AllInvestments';
+import About from './components/About';
 
  
  
@@ -100,12 +101,12 @@ else{
     <Routes>
 
       <Route path='/' element={<Home/>}/>
-      <Route path='/about' element={<p>About</p>}/>
-      <Route path='/contact' element={<p>Contact</p>}/>
+      <Route path='/about' element={<About/>}/>
+  
       <Route path='/showVerify' element={<ShowVerify/>}/>
      <Route path='/showAllProjects' element={<ProjectsDisplay/>}/>
      <Route path='/showAllInvestments' element={<AllInvestments/>}/>
-       <Route path='/notification' element={<Notification/>}/>
+       {/* <Route path='/notification' element={<Notification/>}/> */}
 
       <Route path='/login'  element={<Login />}/>
       <Route path='/confirmMail/:token'  element={<VerifyToken />}/>

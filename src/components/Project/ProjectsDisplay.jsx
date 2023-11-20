@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Card from '../Card';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
- 
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'
 const ProjectsDisplay = () => {
-  
+    const navigate = useNavigate()
     const [category,setCategeories] = useState({name : ""})
     const [loading,setLoading] = useState(true);
     async function getcategories(){
@@ -18,6 +18,7 @@ const ProjectsDisplay = () => {
     console.log("hijiejdi",category)
     setLoading(false)
     }
+    const [uploading ,setUploading] = useState(false)
     const {token} = useSelector( (state) => state.auth )
     const {user} = useSelector( (state) => state.profile )
     const [projectList,setProjectsList] = useState(false)
@@ -54,13 +55,41 @@ const ProjectsDisplay = () => {
         setProjectsList(data1.projectList)
       
     }
-
-   
+ 
+    const data1 = new FormData();
+    
+   async function contactHandler(){
+    console.log("viewp",viewvingproject,viewvingproject.teamMembers)
+    let a =[]
+    viewvingproject.teamMembers.map((member,index)=>{
+         a.push(member.email)
+     })
+        // setUploading(true)
+         
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({teamMembers:a,token:token})
+            };
+            const response = await fetch('api/v1/contactTeamMembers', requestOptions);
+       console.log("ji")
+       const data = await response.json();
+       console.log(data,"contactData")
+       
+       setUploading(false)
+       toast.dismiss()
+       toast.success("Email is sent to teamMembers")
+        
+       navigate('/')
+   }
     function projectOpener(project){
         setvp(project)
         setMode('view')
     }
-    if(loading){
+    if(uploading){
+        <h1>sending mail</h1>
+    }
+    else if(loading){
         getcategories();
     }
     else if(!projectList){
@@ -186,7 +215,7 @@ else{
          
          <div className='w-full flex justify-end'>
             
-         <button   className="w-24 h-10 px-5 py-2 bg-yellow-400 rounded-lg shadow-inner justify-start items-center gap-2 inline-flex">
+         <button onClick={contactHandler}  className="w-24 h-10 px-5 py-2 bg-yellow-400 rounded-lg shadow-inner justify-start items-center gap-2 inline-flex">
 
 <div className="text-center text-gray-900 text-base font-medium leading-normal">Contact </div>
 </button>

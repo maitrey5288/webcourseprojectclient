@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Card from '../Card';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
- 
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'
 const AllInvestments = () => {
-  
+    const navigate = useNavigate()
+    const [uploading ,setUploading] = useState(false)
     const [category,setCategeories] = useState({name : ""})
     const [loading,setLoading] = useState(true);
     async function getcategories(){
@@ -44,16 +45,41 @@ const AllInvestments = () => {
         const data1 = await response1.json();
       
         setProjectsList(data1.InvestmentList)
-        console.log("1213")
+        console.log("1213",data1.InvestmentList)
       
     }
 
-   
+    async function applyHandler(){
+       
+        
+        let a = []
+       console.log("view",viewvingproject)
+           
+             
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({investor:viewvingproject.user.email,token:token})
+                };
+                const response = await fetch('api/v1/getAllInvestments', requestOptions);
+           console.log("ji")
+           const data = await response.json();
+           console.log(data,"contactData")
+           
+           setUploading(false)
+           toast.dismiss()
+           toast.success("Email is sent to teamMembers")
+            
+           navigate('/')
+       }
     function projectOpener(project){
         setvp(project)
         setMode('view')
     }
-    if(loading){
+    if(uploading){
+        <h1>sending mail</h1>
+    }
+    else if(loading){
         getcategories();
     }
     else if(!projectList){
@@ -185,7 +211,7 @@ else{
  
  <div className='w-full flex justify-end'>
     
- <button   className="w-24 h-10 px-5 py-2 bg-yellow-400 rounded-lg shadow-inner justify-start items-center gap-2 inline-flex">
+ <button onClick={applyHandler}  className="w-24 h-10 px-5 py-2 bg-yellow-400 rounded-lg shadow-inner justify-start items-center gap-2 inline-flex">
 
 <div className="text-center text-gray-900 text-base font-medium leading-normal">Apply</div>
 </button>

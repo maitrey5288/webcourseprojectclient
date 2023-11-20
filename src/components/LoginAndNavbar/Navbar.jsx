@@ -3,7 +3,7 @@ import React from 'react'
 import {HiOutlineRocketLaunch} from 'react-icons/hi2'
  
 import { Link, matchPath } from 'react-router-dom'
-import {NavbarLinks} from "../../data/navbar-links"
+ 
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import {IoNotificationsOutline} from "react-icons/io5"
@@ -84,17 +84,14 @@ console.log(location)
 
 
             {user && <div className='relative'>
-            <Link to='/notification'>
-
-            <IoNotificationsOutline className='cursor-pointer text-white text-2xl hover:text-yellow-50'/>
-            </Link>
+           
             {/* <div className=' absolute text-sm text-center right-[-6px] top-[-5px] w-5 text-white rounded-full bg-red-500'><p>0</p></div> */}
             </div>}
             {/* {user && <Link to="/">
                 <button   className='bg-richblack-800 text-richblack-100 py-[8px] px-[12px] rounded-[8px] border-richblack-700'>Log Out</button>
             </Link>}
              */}
-            {user && <Link to="/dashboard/profile">
+            {user && <Link to="/dashboard/profile" className='mx-3'>
                 {/* <button className='bg-richblack-800 text-richblack-100 py-[8px] px-[12px] rounded-[8px] border-richblack-700'>Dashboard</button> */}
                 
 

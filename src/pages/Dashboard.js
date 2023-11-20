@@ -78,10 +78,7 @@ const [selectedOption,setSelectedOption] = useState(location.pathname)
     </div>
    
     
-        <div className="self-stretch px-6 py-2 justify-start items-center gap-3 inline-flex">
-            <div className="w-4 h-4 relative" ><img src={setting}></img></div>
-            <div className="text-slate-500 text-sm font-medium leading-snug">Settings</div>
-        </div>
+        
         <div onClick={logoutHandler} className="self-stretch px-6 py-2 justify-start items-center gap-3 inline-flex cursor-pointer">
             <div className="w-4 h-4 relative" ><img src={logout}></img></div>
             <div  className="text-slate-500 text-sm font-medium leading-snug">Log Out</div>
